@@ -65,6 +65,10 @@ function shuffleContainer() {
 function flipCard() {
   // get the symbol of the clicked card
   let symbol = this.getAttribute("data-symbol");
+  // Check if the clicked card is the same as the first card clicked
+  if (this === firstCard) {
+    return; // Do nothing if the same card is clicked
+  }
   // display the symbol on the card
   this.innerHTML = symbol;
   // add a class name to indicate that the card is flipped
