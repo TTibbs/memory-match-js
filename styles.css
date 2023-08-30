@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #606c88;
+  background: -webkit-radial-gradient(circle, #606c88 0%, #3f4c6b 100%);
+  background: radial-gradient(circle, #606c88 0%, #3f4c6b 100%);
+}
+
+h1 {
+  position: relative;
+  top: -40px;
+  font-weight: bold;
+  color: antiquewhite;
+}
+
+p {
+  position: relative;
+  top: -30px;
+  color: antiquewhite;
+}
+
+#container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card {
+  width: 100%;
+  height: 100px;
+  display: flex; /* Setting the cards center inside container grid */
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  background-color: lightgray;
+  cursor: pointer;
+  -webkit-box-shadow: 3px 3px 10px 3px #000000;
+  -moz-box-shadow: 3px 3px 10px 3px #000000;
+  box-shadow: 3px 3px 10px 3px #000000;
+}
+
+/* Hover styling for cards */
+.card:hover{
+  scale: 1.1;
+}
+
+/* Styling the cards when they are flipped, change this to your desired color */
+.flipped {
+  background-color: white;
+}
+
+
+/* Styling cards when they are matched, change this to your desired color */
+.matched {
+  background-color: lightgreen;
+}
+
+/* Styling for win message, change this to your desired color */
+.message {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 20px;
+  color: green;
+  font-weight: bold;
+}
+
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  #container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns per row, taking up 1 fractional space each */
+    gap: 5px; /* Gives a margin gap of 5px between each card */
+    max-width: 400px; /* Maximum width of the container to be displayed on mobile devices */
+    padding: 10px; /* Padding inside the container */
+  }
+
+  .card {
+    width: 80px;
+    height: 80px;
+    font-size: 1.75em;
+    margin: 3px 10px;
+  }
+}
