@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+/* Aligning the main content to the center */
 body {
   min-height: 100vh;
   display: flex;
@@ -15,6 +16,7 @@ body {
   background: radial-gradient(circle, #606c88 0%, #3f4c6b 100%);
 }
 
+/* Game title positioned relative to move upwards */
 h1 {
   position: relative;
   top: -40px;
@@ -22,12 +24,14 @@ h1 {
   color: antiquewhite;
 }
 
+/* Game title paragraph also positioned relative to move upwards */
 p {
   position: relative;
   top: -30px;
   color: antiquewhite;
 }
 
+/* Game cards container created in a grid pattern */
 #container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -36,10 +40,11 @@ p {
   margin: 0 auto;
 }
 
+/* Defining the cards before JavaScript inserts them dynamically */
 .card {
   width: 100%;
   height: 100px;
-  display: flex; /* Setting the cards center inside container grid */
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2em;
@@ -55,18 +60,18 @@ p {
   scale: 1.1;
 }
 
-/* Styling the cards when they are flipped, change this to your desired color */
+/* Styling the cards when they are flipped */
 .flipped {
   background-color: white;
 }
 
 
-/* Styling cards when they are matched, change this to your desired color */
+/* Styling the cards when they are matched */
 .matched {
   background-color: lightgreen;
 }
 
-/* Styling for win message, change this to your desired color */
+/* Styling for the win message */
 .message {
   font-size: 2em;
   text-align: center;
@@ -75,14 +80,12 @@ p {
   font-weight: bold;
 }
 
-
-/* Media query for smaller screens */
 @media (max-width: 600px) {
   #container {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns per row, taking up 1 fractional space each */
-    gap: 5px; /* Gives a margin gap of 5px between each card */
-    max-width: 400px; /* Maximum width of the container to be displayed on mobile devices */
-    padding: 10px; /* Padding inside the container */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    max-width: 400px;
+    padding: 10px;
   }
 
   .card {
