@@ -1,21 +1,20 @@
-// define an array of cards with different symbols
+// Define an array of cards with different symbols
 let cards = ["🐶", "🐱", "🐭", "🐹", "🐰", "🐶", "🐱", "🐭", "🐹", "🐰"];
 
 let firstCard = null;
 let secondCard = null;
 
-// shuffle the cards using the Fisher-Yates algorithm
+// Shuffle the cards using the Fisher-Yates algorithm
 function shuffle(array) {
   let currentIndex = array.length, temporaryValue, randomIndex;
 
-  // while there remain elements to shuffle
+  // While there remain elements to shuffle
   while (0 !== currentIndex) {
-
-    // pick a remaining element
+    // Pick a remaining element
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
 
-    // swap it with the current element
+    // Swap it with the current element
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
@@ -24,9 +23,9 @@ function shuffle(array) {
   return array;
 }
 
-// create a grid of cards using html and css
+// Create a grid of cards using HTML and CSS
 function createGrid() {
-  // get the container element
+  // Get the container element
   let container = document.getElementById("container");
 
   // Clear the container
@@ -35,17 +34,17 @@ function createGrid() {
   // Shuffle the cards array
   cards = shuffle(cards);
 
-  // loop through the shuffled cards array
+  // Loop through the shuffled cards array
   for (let i = 0; i < cards.length; i++) {
-    // create a card element
+    // Create a card element
     let card = document.createElement("div");
-    // add a class name to the card element
+    // Add a class name to the card element
     card.classList.add("card");
-    // set the data attribute of the card element to the symbol of the card
+    // Set the data attribute of the card element to the symbol of the card
     card.setAttribute("data-symbol", cards[i]);
-    // add an event listener to the card element
+    // Add an event listener to the card element
     card.addEventListener("click", flipCard);
-    // append the card element to the container element
+    // Append the card element to the container element
     container.appendChild(card);
   }
 
@@ -61,92 +60,90 @@ function shuffleContainer() {
   }
 }
 
-// flip a card when clicked and check for matches
+// Flip a card when clicked and check for matches
 function flipCard() {
-  // get the symbol of the clicked card
+  // Get the symbol of the clicked card
   let symbol = this.getAttribute("data-symbol");
   // Check if the clicked card is the same as the first card clicked
   if (this === firstCard) {
     return; // Do nothing if the same card is clicked
   }
-  // display the symbol on the card
+  // Display the symbol on the card
   this.innerHTML = symbol;
-  // add a class name to indicate that the card is flipped
+  // Add a class name to indicate that the card is flipped
   this.classList.add("flipped");
-  // check if this is the first or second card flipped in a turn
+  // Check if this is the first or second card flipped in a turn
   if (firstCard === null) {
-    // store the first card
+    // Store the first card
     firstCard = this;
   } else {
-    // store the second card
+    // Store the second card
     secondCard = this;
-    // disable further clicks until the turn is over
+    // Disable further clicks until the turn is over
     disableClicks();
-    // check if the symbols of the two cards match
+    // Check if the symbols of the two cards match
     if (firstCard.getAttribute("data-symbol") === secondCard.getAttribute("data-symbol")) {
-      // add a class name to indicate that the cards are matched
+      // Add a class name to indicate that the cards are matched
       firstCard.classList.add("matched");
       secondCard.classList.add("matched");
-      // reset the first and second cards
+      // Reset the first and second cards
       firstCard = null;
       secondCard = null;
-      // enable clicks again
+      // Enable clicks again
       enableClicks();
-      // check if all cards are matched and the game is over
+      // Check if all cards are matched and the game is over
       checkGameOver();
     } else {
-      // wait for one second and then flip back the cards
+      // Wait for one second and then flip back the cards
       setTimeout(flipBack, 1000);
     }
   }
 }
 
-// flip back the cards that are not matched
+// Flip back the cards that are not matched
 function flipBack() {
-  // remove the symbol from the cards
+  // Remove the symbol from the cards
   firstCard.innerHTML = "";
   secondCard.innerHTML = "";
-  // remove the class name that indicates that the cards are flipped
+  // Remove the class name that indicates that the cards are flipped
   firstCard.classList.remove("flipped");
   secondCard.classList.remove("flipped");
-  // reset the first and second cards
+  // Reset the first and second cards
   firstCard = null;
   secondCard = null;
-  // enable clicks again
+  // Enable clicks again
   enableClicks();
 }
 
-// disable clicks on all cards
+// Disable clicks on all cards
 function disableClicks() {
-  // get all the card elements
+  // Get all the card elements
   let cards = document.getElementsByClassName("card");
-  // loop through the card elements and remove the event listener
+  // Loop through the card elements and remove the event listener
   for (const card of cards) {
-  card.removeEventListener("click", flipCard);
-}
+    card.removeEventListener("click", flipCard);
+  }
 }
 
-// enable clicks on all cards that are not matched
+// Enable clicks on all cards that are not matched
 function enableClicks() {
-  // get all the card elements that are not matched
+  // Get all the card elements that are not matched
   let cards = document.querySelectorAll(".card:not(.matched)");
-  // loop through the card elements and add the event listener
+  // Loop through the card elements and add the event listener
   for (let i = 0; i < cards.length; i++) {
     cards[i].addEventListener("click", flipCard);
   }
 }
 
-// check if all cards are matched and display a message if so
+// Check if all cards are matched and display a message if so
 function checkGameOver() {
-  // get all the card elements that are not matched
+  // Get all the card elements that are not matched
   let cards = document.querySelectorAll(".card:not(.matched)");
-  // if there are no such elements, then all cards are matched and the game is over
+  // If there are no such elements, then all cards are matched and the game is over
   if (cards.length === 0) {
-    // display a message on the screen using html and css
-    let message = document.createElement("div");
-    message.classList.add("message");
+    // Display a message on the screen using HTML and CSS
+    let message = document.getElementById("message");
     message.innerHTML = "You win!";
-    document.body.appendChild(message);
 
     // Add reset button
     let resetButton = document.createElement("button");
@@ -161,24 +158,25 @@ function checkGameOver() {
 
 // Function to reset the game
 function resetGame() {
-  // Clear the entire body
-  document.body.innerHTML = '';
+  // Select the container and message elements and clear their content
+  let container = document.getElementById("container");
+  container.innerHTML = '';
 
-  // Recreate the game elements
-  let container = document.createElement("div");
-  container.id = "container";
-  document.body.appendChild(container);
+  let message = document.getElementById("message");
+  message.innerHTML = '';
 
-  let message = document.createElement("div");
-  message.classList.add("message");
-  message.innerHTML = "";
-  document.body.appendChild(message);
+  // Remove the reset button if it exists
+  let resetButton = document.getElementById("resetButton");
+  if (resetButton) {
+    resetButton.remove();
+  }
 
+  // Recreate the game elements within the container
   cards = shuffle(cards);
   createGrid();
 }
 
-// initialize the game
+// Initialize the game
 function init() {
   cards = shuffle(cards);
   createGrid();
@@ -186,7 +184,7 @@ function init() {
   secondCard = null;
 }
 
-// call the init function when the window loads
+// Call the init function when the window loads
 window.onload = function () {
   createGrid();
   init(); // Call the init function as well
